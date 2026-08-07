@@ -5,9 +5,9 @@ export function Conditions() {
     <section className="section" id="conditions">
       <div className="shell">
         <div className="section__head">
-          <h2 className="section__title">Условия</h2>
+          <h2 className="section__title">Условия заказа</h2>
           <p className="section__lead">
-            Коротко о том, что стоит знать до заказа. Доставка и самовывоз —{' '}
+            Сроки, предоплата и доставка — коротко о главном до заказа в{' '}
             {site.city}.
           </p>
         </div>

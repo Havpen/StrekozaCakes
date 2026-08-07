@@ -9,6 +9,7 @@ const navItems = [
   { id: 'order', label: 'Как заказать' },
   { id: 'gallery', label: 'Работы' },
   { id: 'conditions', label: 'Условия' },
+  { id: 'faq', label: 'FAQ' },
   { id: 'reviews', label: 'Отзывы' },
 ] as const
 

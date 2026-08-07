@@ -22,6 +22,16 @@ const CAROUSEL_CARD = 'min(62vmin, 400px)'
 /** Must match `--catalog-carousel-y` in CSS — vertical center of the coverflow card. */
 const CAROUSEL_Y = 0.46
 
+/** Равноправный акцент: корпусные → муссовые → трайфлы → моти */
+const CATALOG_ORDER = [
+  'shell-pastries',
+  'mousse-cake',
+  'mousse-bento',
+  'mousse-pastries',
+  'trifle',
+  'mochi',
+] as const
+
 function resolveCardSizePx() {
   const probe = document.createElement('div')
   probe.style.cssText =
@@ -33,7 +43,14 @@ function resolveCardSizePx() {
 }
 
 export function Catalog() {
-  const cards = site.catalog
+  const cards = useMemo(() => {
+    const rank = new Map<string, number>(
+      CATALOG_ORDER.map((id, index) => [id, index]),
+    )
+    return [...site.catalog].sort(
+      (a, b) => (rank.get(a.id) ?? 99) - (rank.get(b.id) ?? 99),
+    )
+  }, [])
   const cardRefs = useRef<Map<string, HTMLButtonElement>>(new Map())
   const flyerRef = useRef<HTMLDivElement>(null)
   const detailsCopyRef = useRef<HTMLDivElement>(null)
@@ -317,7 +334,10 @@ export function Catalog() {
           >
             <span
               className="catalog-flyer__media"
-              style={{ backgroundImage: `url(${activeCard.cover})` }}
+              style={{
+                backgroundImage: `url(${activeCard.cover})`,
+                backgroundPosition: activeCard.coverPosition ?? 'center',
+              }}
             />
           </div>
         ) : null}
@@ -394,10 +414,11 @@ export function Catalog() {
     <section className="section catalog" id="catalog">
       <div className="shell">
         <div className="section__head">
-          <h2 className="section__title">Каталог</h2>
+          <h2 className="section__title">Что можно заказать</h2>
           <p className="section__lead">
-            Базовые позиции для заказов в Гомеле. Цены — «от», финальный вариант
-            собираем вместе: декор, начинка и дата.
+            Корпусные пирожные, муссовые изделия, трайфлы и моти на заказ в
+            Гомеле. Цены — «от», финальный вариант собираем вместе в Direct:
+            декор, начинка и дата.
           </p>
         </div>
 
@@ -432,7 +453,10 @@ export function Catalog() {
                 >
                   <span
                     className="catalog-card__media"
-                    style={{ backgroundImage: `url(${card.cover})` }}
+                    style={{
+                      backgroundImage: `url(${card.cover})`,
+                      backgroundPosition: card.coverPosition ?? 'center',
+                    }}
                     aria-hidden
                   />
                   <span className="catalog-card__shade" aria-hidden />
@@ -486,7 +510,10 @@ export function Catalog() {
                     <li key={card.id} className="catalog-list__item">
                       <div
                         className="catalog-list__media"
-                        style={{ backgroundImage: `url(${card.cover})` }}
+                        style={{
+                          backgroundImage: `url(${card.cover})`,
+                          backgroundPosition: card.coverPosition ?? 'center',
+                        }}
                         role="img"
                         aria-label={card.name}
                       />

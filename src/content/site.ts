@@ -19,6 +19,8 @@ export type CatalogItem = {
   description: string
   /** Обложка карточки в сетке каталога */
   cover: string
+  /** CSS background-position для обложки, напр. 'center 25%' */
+  coverPosition?: string
   /** Карусель разрезов именно этой позиции */
   slices: SliceSlide[]
   /** Ключ группы начинок из site.fillings (для блока на странице) */
@@ -53,7 +55,7 @@ export const site = {
   brand: 'STREKOZA',
   tagline: 'Крафтовые торты и десерты на заказ в Гомеле',
   heroSupport:
-    'Заказы и доставка по Гомелю. Декор выбираете вы — начинку и дату подберём в Direct.',
+    'Заказы по Гомелю через Instagram Direct. Декор выбираете вы — начинку и дату согласуем лично. Муссовые изделия — по предзаказу от 3 дней.',
 
   /** Подставьте свой @ник Instagram */
   instagramHandle: 'strekoza_cakes_',
@@ -106,30 +108,30 @@ export const site = {
       cover: asset('images/img_0574.webp'),
       fillingsKey: 'mousse',
       description:
-        'Торт с декором на ваш вкус. Начинку и дату обсуждаем в Direct — подберём вариант именно под ваш праздник.',
+        'Муссовый торт на заказ в Гомеле. Начинку и декор согласуем в Direct. Предзаказ минимум за 3 дня, предоплата 50%.',
       slices: [
         {
-          src: asset('images/img_0574.webp'),
+          src: asset('images/mousse-cake-berry-ring.webp'),
           filling: 'вишня + шоколад',
           alt: 'Муссовый торт, начинка вишня и шоколад',
         },
         {
-          src: asset('images/img_2482.webp'),
+          src: asset('images/mousse-cake-red-mirror.webp'),
           filling: 'клубника + хрустящий слой',
           alt: 'Муссовый торт, начинка клубника',
         },
         {
-          src: asset('images/img_9638.webp'),
+          src: asset('images/mousse-cake-cross-section.webp'),
           filling: 'персик + хрустящий слой',
           alt: 'Муссовый торт, начинка персик',
         },
         {
-          src: asset('images/img_0391.webp'),
+          src: asset('images/mousse-cake-pink-pearls.webp'),
           filling: 'лимон + хрустящий слой',
           alt: 'Муссовый торт, начинка лимон',
         },
         {
-          src: asset('images/img_8500.webp'),
+          src: asset('images/img_7196.webp'),
           filling: 'банан + сгущенка',
           alt: 'Муссовый торт, начинка банан и сгущенка',
         },
@@ -140,10 +142,10 @@ export const site = {
       name: 'Муссовый бенто-торт',
       detail: 'вес 500 г',
       priceFrom: 55,
-      cover: asset('images/img_7921.webp'),
+      cover: asset('images/img_1253.webp'),
       fillingsKey: 'mousse',
       description:
-        'Компактный бенто с аккуратным декором. Идеален для небольшого торжества или подарка.',
+        'Муссовый бенто-торт на заказ в Гомеле — компактный формат с аккуратным декором. Предзаказ от 3 дней, предоплата 50%.',
       slices: [
         {
           src: asset('images/img_7921.webp'),
@@ -181,7 +183,7 @@ export const site = {
       cover: asset('images/img_9964.webp'),
       fillingsKey: 'pastries',
       description:
-        'Корпусные пирожные в форме фруктов. Набор от четырёх штук — вкус и декор обсудим в Direct.',
+        'Корпусные пирожные на заказ в Гомеле — набор под ваш повод. Вкус и декор обсудим в Direct.',
       slices: [
         {
           src: asset('images/pastry-strawberry.webp'),
@@ -243,9 +245,10 @@ export const site = {
       priceUnit: '/шт',
       note: '12 BYN за штуку',
       cover: asset('images/img_1109.webp'),
+      coverPosition: 'center 87%',
       fillingsKey: 'mousse',
       description:
-        'Муссовые пирожные с бархатным покрытием и аккуратной геометрией. Начинки те же, что у муссовых тортов. Заказ от двух штук — вкус и декор обсудим в Direct.',
+        'Муссовые пирожные на заказ в Гомеле — бархатное покрытие и геометрия. Начинки как у муссовых тортов. Предзаказ от 3 дней, предоплата 50%.',
       slices: [
         {
           src: asset('images/mousse-pastry-0391.webp'),
@@ -279,10 +282,10 @@ export const site = {
       name: 'Моти',
       detail: 'в продаже от 4 шт',
       priceFrom: 45,
-      cover: asset('images/img_1124.webp'),
+      cover: asset('images/mochi-cover.webp'),
       fillingsKey: 'mochi',
       description:
-        'Нежные моти с начинками на выбор. Заказ от четырёх штук.',
+        'Моти на заказ в Гомеле — набор от 4 шт. Начинку выберете в Direct.',
       slices: [
         {
           src: asset('images/mochi-nutella.webp'),
@@ -345,7 +348,7 @@ export const site = {
       cover: asset('images/img_0365.webp'),
       fillingsKey: 'trifle',
       description:
-        'Десерт в стаканчике — удобно для праздников и к чаю. В продаже от двух штук.',
+        'Трайфлы на заказ в Гомеле — удобный десерт порционно. От двух штук.',
       slices: [
         {
           src: asset('images/img_0365.webp'),
@@ -473,7 +476,7 @@ export const site = {
   orderSteps: [
     {
       title: 'Напишите в Direct',
-      text: 'Пришлите референс декора из ленты или опишите идею.',
+      text: 'Пришлите референс декора из ленты или опишите идею — @strekoza_cakes_.',
     },
     {
       title: 'Подберём начинку и дату',
@@ -481,26 +484,26 @@ export const site = {
     },
     {
       title: 'Предоплата',
-      text: 'После согласования фиксируем заказ обязательной предоплатой.',
+      text: 'За муссовые изделия после согласования — предоплата 50%. Затем запускаем заказ.',
     },
     {
       title: 'Доставка или самовывоз',
-      text: 'По Гомелю — Яндекс Доставка или самовывоз, как удобнее.',
+      text: 'Доставка по Гомелю не входит в цену: Яндекс Доставка или самовывоз.',
     },
   ],
 
   conditions: [
     {
-      title: 'Предоплата обязательна',
-      text: 'Заказ запускается в работу только после предоплаты.',
+      title: 'Предзаказ от 3 дней',
+      text: 'Муссовые изделия готовим только по предзаказу — минимум за 3 дня до даты получения.',
     },
     {
-      title: 'Доставка по Гомелю',
-      text: 'Доставляем по Гомелю через Яндекс или забираете самовывозом.',
+      title: 'Предоплата 50%',
+      text: 'За муссовые изделия после согласования заказа нужна предоплата 50%.',
     },
     {
-      title: 'Начинка и дата',
-      text: 'Декор можно выбрать по фото, вкус и дату всегда обсуждаем лично.',
+      title: 'Доставка отдельно',
+      text: 'Доставка не входит в стоимость позиций. По Гомелю — Яндекс Доставка или самовывоз.',
     },
   ],
 

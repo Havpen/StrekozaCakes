@@ -178,8 +178,13 @@ export function FillingsMarquee() {
       ref={rootRef}
       className="fillings-marquee"
       id="fillings"
-      aria-label="Начинки"
+      aria-labelledby="fillings-title"
     >
+      <div className="shell fillings-marquee__head">
+        <h2 className="section__title" id="fillings-title">
+          Начинки и вкусы
+        </h2>
+      </div>
       <div
         ref={viewportRef}
         className="fillings-marquee__viewport"

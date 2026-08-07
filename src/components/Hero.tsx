@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Dragonfly } from './Dragonfly'
 import { site } from '../content/site'
+import { HERO_SUPPORT, SITE_H1 } from '../config/siteSeo'
 import { asset } from '@/lib/asset'
 import { scrollToSection } from '../lib/scroll'
 
@@ -40,6 +41,15 @@ export function Hero() {
   return (
     <section className="hero" id="top" aria-label="Главный экран">
       <div className="hero__media">
+        <img
+          className="hero__poster"
+          src={site.heroImage}
+          alt="STREKOZA — муссовый торт и десерты на заказ в Гомеле"
+          width={1600}
+          height={2000}
+          fetchPriority="high"
+          decoding="async"
+        />
         <video
           ref={videoRef}
           className="hero__video"
@@ -50,7 +60,8 @@ export function Hero() {
           loop
           autoPlay
           preload="metadata"
-          aria-label="STREKOZA — крафтовые десерты"
+          aria-hidden="true"
+          tabIndex={-1}
         />
         <div className="hero__veil" aria-hidden="true" />
       </div>
@@ -58,12 +69,12 @@ export function Hero() {
       <div className="hero__content">
         <div className="hero__brand-row" id="hero-title">
           <Dragonfly className="hero__dragonfly" tone="light" />
-          <h1 className="hero__title">{site.brand}</h1>
+          <p className="hero__title">{site.brand}</p>
         </div>
 
         <div className="hero__text">
-          <p className="hero__tagline">{site.tagline}</p>
-          <p className="hero__support">{site.heroSupport}</p>
+          <h1 className="hero__h1">{SITE_H1}</h1>
+          <p className="hero__support">{HERO_SUPPORT}</p>
         </div>
 
         <div className="hero__actions">

@@ -106,9 +106,10 @@ export function Order() {
     <section className="section order-band" id="order">
       <div className="shell">
         <div className="section__head">
-          <h2 className="section__title">Как заказать</h2>
+          <h2 className="section__title">Как заказать в Гомеле</h2>
           <p className="section__lead">
-            Без корзины и форм — заказы по Гомелю через Instagram Direct.
+            Без корзины и форм — заказы по Гомелю через Instagram Direct
+            @{site.instagramHandle}.
           </p>
         </div>
 
