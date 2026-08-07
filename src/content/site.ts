@@ -169,14 +169,14 @@ export const site = {
       ],
     },
     {
-      id: 'mousse-pastries',
-      name: 'Муссовые пирожные',
+      id: 'shell-pastries',
+      name: 'Корпусные пирожные',
       detail: 'набор от 4 шт',
       priceFrom: 10,
       cover: asset('images/img_9967.webp'),
       fillingsKey: 'pastries',
       description:
-        'Фруктовые муссовые пирожные в разрезе — вид начинки виден сразу. Набор от четырёх штук.',
+        'Фруктовые корпусные пирожные в разрезе — вид начинки виден сразу. Набор от четырёх штук.',
       slices: [
         {
           src: asset('images/pastry-strawberry.webp'),
@@ -227,6 +227,43 @@ export const site = {
           src: asset('images/pastry-currant.webp'),
           filling: 'смородина',
           alt: 'Пирожное-смородина',
+        },
+      ],
+    },
+    {
+      id: 'mousse-pastries',
+      name: 'Муссовые пирожные',
+      detail: 'набор от 4 шт',
+      priceFrom: 10,
+      cover: asset('images/img_1109.webp'),
+      fillingsKey: 'pastries',
+      description:
+        'Муссовые пирожные с аккуратной геометрией. Набор от четырёх штук — вкус и декор обсудим в Direct.',
+      slices: [
+        {
+          src: asset('images/img_1109.webp'),
+          filling: 'малина',
+          alt: 'Муссовые пирожные, малина',
+        },
+        {
+          src: asset('images/pastry-set.webp'),
+          filling: 'персик',
+          alt: 'Муссовые пирожные, набор',
+        },
+        {
+          src: asset('images/pastry-strawberry.webp'),
+          filling: 'клубника',
+          alt: 'Муссовое пирожное-клубника',
+        },
+        {
+          src: asset('images/pastry-lemon.webp'),
+          filling: 'лимон',
+          alt: 'Муссовое пирожное-лимон',
+        },
+        {
+          src: asset('images/pastry-peach.webp'),
+          filling: 'персик',
+          alt: 'Муссовое пирожное-персик',
         },
       ],
     },
