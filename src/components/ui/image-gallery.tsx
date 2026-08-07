@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useInView } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
@@ -18,16 +18,62 @@ type ImageGalleryProps = {
   className?: string
 }
 
+/** Раскладываем по колонкам по кругу — рядом оказываются разные пропорции */
+function packColumns(items: ImageGalleryItem[], columnCount: number) {
+  const columns: ImageGalleryItem[][] = Array.from(
+    { length: columnCount },
+    () => [],
+  )
+  items.forEach((item, index) => {
+    columns[index % columnCount].push(item)
+  })
+  return columns
+}
+
 export function ImageGallery({ items, className }: ImageGalleryProps) {
+  const desktopColumns = useMemo(() => packColumns(items, 3), [items])
+  const tabletColumns = useMemo(() => packColumns(items, 2), [items])
+
   return (
     <div className={cn('relative w-full', className)}>
-      <div className="gallery-masonry-grid">
+      {/* Mobile: одна колонка */}
+      <div className="grid gap-4 sm:hidden">
         {items.map((item, index) => (
           <AnimatedImage
-            key={item.src + item.alt}
+            key={`m-${item.src}`}
             item={item}
-            priority={index < 4}
+            priority={index < 2}
           />
+        ))}
+      </div>
+
+      {/* Tablet: 2 колонки */}
+      <div className="hidden gap-4 sm:grid sm:grid-cols-2 lg:hidden">
+        {tabletColumns.map((column, colIndex) => (
+          <div key={`t-${colIndex}`} className="grid gap-4 content-start">
+            {column.map((item, index) => (
+              <AnimatedImage
+                key={`t-${item.src}`}
+                item={item}
+                priority={colIndex === 0 && index < 2}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: 3 колонки */}
+      <div className="hidden gap-5 lg:grid lg:grid-cols-3">
+        {desktopColumns.map((column, colIndex) => (
+          <div key={`d-${colIndex}`} className="grid gap-5 content-start">
+            {column.map((item, index) => (
+              <AnimatedImage
+                key={`d-${item.src}`}
+                item={item}
+                priority={colIndex < 2 && index === 0}
+              />
+            ))}
+          </div>
         ))}
       </div>
     </div>
@@ -42,7 +88,6 @@ function AnimatedImage({
   priority?: boolean
 }) {
   const ref = React.useRef<HTMLDivElement>(null)
-  // Рано начинаем грузить и анимировать — ещё до появления в кадре
   const nearViewport = useInView(ref, {
     once: true,
     amount: 0.01,
@@ -70,9 +115,7 @@ function AnimatedImage({
           className={cn(
             'absolute inset-0 size-full object-cover',
             'transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]',
-            revealed
-              ? 'scale-100 opacity-100'
-              : 'scale-[1.03] opacity-0',
+            revealed ? 'scale-100 opacity-100' : 'scale-[1.03] opacity-0',
           )}
           style={
             item.objectPosition

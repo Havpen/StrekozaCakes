@@ -5,14 +5,17 @@ import {
   type ImageGalleryItem,
 } from '@/components/ui/image-gallery'
 
-/** Чередуем ландшафт / портрет — без Math.random, чтобы вёрстка была стабильной */
+/**
+ * Разные пропорции специально вразнобой:
+ * высокие / широкие / почти квадрат — чтобы masonry не складывался рядами.
+ */
 const galleryItems: ImageGalleryItem[] = [
   {
     src: asset('images/gallery/img_1253.webp'),
     alt: 'Муссовый бенто-торт — клубника',
     title: 'Муссовый бенто-торт',
     desc: 'Клубника',
-    ratio: 4 / 5,
+    ratio: 3 / 4,
   },
   {
     src: asset('images/gallery/img_0362.webp'),
@@ -22,33 +25,47 @@ const galleryItems: ImageGalleryItem[] = [
     ratio: 16 / 10,
   },
   {
-    src: asset('images/gallery/img_1124.webp'),
-    alt: 'Моти — клубника',
-    title: 'Моти',
-    desc: 'Клубника',
-    ratio: 3 / 4,
+    src: asset('images/gallery/img_0574.webp'),
+    alt: 'Муссовый торт — вишня + шоколад',
+    title: 'Муссовый торт',
+    desc: 'Вишня + шоколад',
+    ratio: 4 / 5,
   },
   {
     src: asset('images/gallery/order-04-pastry-peach-lemon.webp'),
     alt: 'Муссовое пирожное — персик / лимон',
     title: 'Муссовое пирожное',
     desc: 'Персик / лимон',
-    ratio: 16 / 11,
+    ratio: 1,
   },
   {
     src: asset('images/gallery/img_6881.webp'),
     alt: 'Муссовый бенто-торт — вишня-шоколад',
     title: 'Муссовый бенто-торт',
     desc: 'Вишня-шоколад',
+    ratio: 5 / 6,
+  },
+  {
+    src: asset('images/gallery/img_1109.webp'),
+    alt: 'Муссовые пирожные — малина / персик / лимон',
+    title: 'Муссовые пирожные',
+    desc: 'Малина / персик / лимон',
+    ratio: 16 / 11,
+  },
+  {
+    src: asset('images/gallery/img_1124.webp'),
+    alt: 'Моти — клубника',
+    title: 'Моти',
+    desc: 'Клубника',
     ratio: 4 / 5,
   },
   {
-    src: asset('images/gallery/img_7196.webp'),
-    alt: 'Муссовый торт — клубника',
+    src: asset('images/gallery/order-08-cake-mixed.webp'),
+    alt: 'Муссовый торт — шоколад / персик / клубника',
     title: 'Муссовый торт',
-    desc: 'Клубника',
-    ratio: 16 / 10,
-    objectPosition: 'center 78%',
+    desc: 'Шоколад / персик / клубника',
+    ratio: 5 / 4,
+    objectPosition: 'center 32%',
   },
   {
     src: asset('images/gallery/img_1486.webp'),
@@ -59,40 +76,26 @@ const galleryItems: ImageGalleryItem[] = [
     objectPosition: 'center 72%',
   },
   {
-    src: asset('images/gallery/order-08-cake-mixed.webp'),
-    alt: 'Муссовый торт — шоколад / персик / клубника',
+    src: asset('images/gallery/img_7196.webp'),
+    alt: 'Муссовый торт — клубника',
     title: 'Муссовый торт',
-    desc: 'Шоколад / персик / клубника',
-    ratio: 16 / 11,
-    objectPosition: 'center 32%',
-  },
-  {
-    src: asset('images/gallery/img_0574.webp'),
-    alt: 'Муссовый торт — вишня + шоколад',
-    title: 'Муссовый торт',
-    desc: 'Вишня + шоколад',
-    ratio: 4 / 5,
-  },
-  {
-    src: asset('images/gallery/img_1109.webp'),
-    alt: 'Муссовые пирожные — малина / персик / лимон',
-    title: 'Муссовые пирожные',
-    desc: 'Малина / персик / лимон',
+    desc: 'Клубника',
     ratio: 16 / 10,
+    objectPosition: 'center 78%',
   },
   {
     src: asset('images/gallery/img_2443.webp'),
     alt: 'Муссовый торт — клубника',
     title: 'Муссовый торт',
     desc: 'Клубника',
-    ratio: 3 / 4,
+    ratio: 5 / 6,
   },
   {
     src: asset('images/gallery/img_9964.webp'),
     alt: 'Муссовый торт — персик',
     title: 'Муссовый торт',
     desc: 'Персик',
-    ratio: 16 / 11,
+    ratio: 6 / 5,
   },
 ].map((item) => ({
   ...item,
