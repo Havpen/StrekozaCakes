@@ -68,11 +68,11 @@ function AnimatedImage({
           alt={item.alt}
           src={item.src}
           className={cn(
-            'size-full rounded-lg object-cover will-change-transform',
+            'absolute inset-0 size-full object-cover',
             'transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]',
             revealed
               ? 'scale-100 opacity-100'
-              : 'scale-[1.04] opacity-0',
+              : 'scale-[1.03] opacity-0',
           )}
           style={
             item.objectPosition
@@ -92,7 +92,8 @@ function AnimatedImage({
       {item.title ? (
         <div
           className={cn(
-            'pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-3 pb-3 pt-10 text-left',
+            'pointer-events-none absolute inset-x-0 bottom-0 px-3 pb-3 pt-8 text-left',
+            'bg-[linear-gradient(to_top,rgba(10,10,12,0.72)_0%,rgba(10,10,12,0.28)_55%,transparent_100%)]',
             'transition-opacity duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]',
             revealed ? 'opacity-100' : 'opacity-0',
           )}
