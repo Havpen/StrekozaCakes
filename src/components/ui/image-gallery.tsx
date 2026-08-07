@@ -26,7 +26,7 @@ export function ImageGallery({ items, className }: ImageGalleryProps) {
           <AnimatedImage
             key={item.src + item.alt}
             item={item}
-            priority={index < 2}
+            priority={index < 4}
           />
         ))}
       </div>
@@ -42,14 +42,21 @@ function AnimatedImage({
   priority?: boolean
 }) {
   const ref = React.useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, amount: 0.15 })
+  // Рано начинаем грузить и анимировать — ещё до появления в кадре
+  const nearViewport = useInView(ref, {
+    once: true,
+    amount: 0.01,
+    margin: '220px 0px 180px 0px',
+  })
   const [isLoading, setIsLoading] = React.useState(true)
   const [failed, setFailed] = React.useState(false)
   const [shouldLoad, setShouldLoad] = React.useState(Boolean(priority))
 
   React.useEffect(() => {
-    if (priority || isInView) setShouldLoad(true)
-  }, [priority, isInView])
+    if (priority || nearViewport) setShouldLoad(true)
+  }, [priority, nearViewport])
+
+  const revealed = !isLoading && !failed && (priority || nearViewport)
 
   const media = (
     <AspectRatio
@@ -61,8 +68,11 @@ function AnimatedImage({
           alt={item.alt}
           src={item.src}
           className={cn(
-            'size-full rounded-lg object-cover transition-opacity duration-500 ease-out',
-            isLoading ? 'opacity-0' : 'opacity-100',
+            'size-full rounded-lg object-cover will-change-transform',
+            'transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]',
+            revealed
+              ? 'scale-100 opacity-100'
+              : 'scale-[1.04] opacity-0',
           )}
           style={
             item.objectPosition
@@ -80,7 +90,13 @@ function AnimatedImage({
         />
       ) : null}
       {item.title ? (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-3 pb-3 pt-10 text-left">
+        <div
+          className={cn(
+            'pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-3 pb-3 pt-10 text-left',
+            'transition-opacity duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]',
+            revealed ? 'opacity-100' : 'opacity-0',
+          )}
+        >
           <p className="text-sm font-semibold text-white">{item.title}</p>
           {item.desc ? (
             <p className="mt-0.5 text-xs text-white/80">{item.desc}</p>
