@@ -1283,7 +1283,7 @@ p {
 
 /* Gallery */
 .gallery-masonry {
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 .gallery-masonry-grid {
@@ -1324,8 +1324,12 @@ p {
 }
 
 #gallery.section {
-  padding-top: 2rem;
+  padding-top: 3.75rem;
   border-top: 1px solid var(--color-line);
+}
+
+#gallery .section__head {
+  margin-bottom: 4.5rem;
 }
 
 .gallery__note a {
@@ -1445,7 +1449,7 @@ p {
 
 .order-band {
   background: transparent;
-  padding-bottom: 3.5rem;
+  padding-bottom: 4.5rem;
 }
 
 .order-video {
