@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://havpen.github.io/StrekozaCakes/sitemap.xml
