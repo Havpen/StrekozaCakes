@@ -11,7 +11,7 @@
   --color-line: rgba(20, 20, 20, 0.12);
 
   --font-display: 'Montserrat', 'Segoe UI', sans-serif;
-  --font-logo: 'Cinzel', 'Times New Roman', serif;
+  --font-logo: 'Aboreto', 'Segoe UI', sans-serif;
   --font-body: 'Montserrat', 'Segoe UI', sans-serif;
 
   --space-xs: 0.5rem;
@@ -258,7 +258,7 @@ p {
 .brand__name {
   font-family: var(--font-logo);
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.14em;
 }
 
@@ -393,7 +393,7 @@ p {
 .hero__title {
   font-family: var(--font-logo);
   font-size: clamp(2.6rem, 11vw, 7.5rem);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.08em;
   line-height: 0.92;
   max-width: 100%;

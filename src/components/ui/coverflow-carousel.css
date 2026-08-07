@@ -128,7 +128,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), 'Segoe UI', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -198,7 +198,7 @@
 .cf-slide-title {
   margin: 0;
   color: #f7f5f1;
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), 'Segoe UI', sans-serif;
   font-size: clamp(1.05rem, 2.2vmin, 1.45rem);
   font-weight: 600;
   line-height: 1.15;
