@@ -1,7 +1,7 @@
 :root {
-  --color-blue: #8eb1ff;
-  --color-blue-soft: #c9d8ff;
-  --color-blue-wash: #e8efff;
+  --color-blue: #5f8af0;
+  --color-blue-soft: #8eb1ff;
+  --color-blue-wash: #d7e4ff;
   --color-burgundy: #9e0000;
   --color-burgundy-deep: #7a0000;
   --color-ink: #141414;
@@ -10,7 +10,7 @@
   --color-white: #ffffff;
   --color-line: rgba(20, 20, 20, 0.12);
 
-  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-display: 'Montserrat', 'Segoe UI', sans-serif;
   --font-body: 'Montserrat', 'Segoe UI', sans-serif;
 
   --space-xs: 0.5rem;
@@ -133,10 +133,10 @@ p {
 
 .section__title {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 4vw, 3.6rem);
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
   font-weight: 600;
-  letter-spacing: 0.02em;
-  line-height: 1.1;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   margin-bottom: var(--space-sm);
 }
 
@@ -256,9 +256,9 @@ p {
 
 .brand__name {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
 }
 
 .nav {
@@ -381,8 +381,8 @@ p {
   font-family: var(--font-display);
   font-size: clamp(2.6rem, 11vw, 7.5rem);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  line-height: 0.92;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
   max-width: 100%;
   overflow-wrap: anywhere;
 }
@@ -422,7 +422,7 @@ p {
 
 @media (min-width: 720px) {
   .hero__title {
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
   }
 }
 
@@ -1298,7 +1298,9 @@ p {
   font-size: 0.95rem;
 }
 
-#gallery.section {
+#gallery.section,
+#conditions.section,
+#reviews.section {
   padding-top: 3.75rem;
   border-top: 1px solid var(--color-line);
 }
@@ -1388,15 +1390,10 @@ p {
   }
 }
 
-.step {
-  padding-top: 1rem;
-  border-top: 1px solid var(--color-blue-soft);
-  text-align: center;
-}
-
+.step,
 .condition {
   padding-top: 1rem;
-  border-top: 1px solid var(--color-line);
+  border-top: 3px solid var(--color-blue);
   text-align: center;
 }
 
