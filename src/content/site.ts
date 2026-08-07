@@ -13,6 +13,8 @@ export type CatalogItem = {
   name: string
   detail: string
   priceFrom: number
+  /** Суффикс к цене, например `/шт` */
+  priceUnit?: string
   note?: string
   description: string
   /** Обложка карточки в сетке каталога */
@@ -70,12 +72,13 @@ export const site = {
     name: string
     detail?: string
     priceFrom: number
+    priceUnit?: string
     filling?: string | null
   }) {
     // Компактный однострочник лучше подхватывается мобильным приложением Instagram
     const parts = [`Заказ: ${order.name}`]
     if (order.filling) parts.push(`начинка «${order.filling}»`)
-    parts.push(`от ${order.priceFrom} BYN`)
+    parts.push(`от ${order.priceFrom} BYN${order.priceUnit ?? ''}`)
     if (order.detail) parts.push(order.detail)
     return `${parts.join(' · ')}. Гомель · подскажите по срокам и оформлению.`
   },
@@ -84,6 +87,7 @@ export const site = {
     name: string
     detail?: string
     priceFrom: number
+    priceUnit?: string
     filling?: string | null
   }) {
     const text = this.buildOrderMessage(order)
@@ -173,10 +177,11 @@ export const site = {
       name: 'Корпусные пирожные',
       detail: 'набор от 4 шт',
       priceFrom: 10,
-      cover: asset('images/img_9967.webp'),
+      priceUnit: '/шт',
+      cover: asset('images/img_9964.webp'),
       fillingsKey: 'pastries',
       description:
-        'Фруктовые корпусные пирожные в разрезе — вид начинки виден сразу. Набор от четырёх штук.',
+        'Корпусные пирожные в форме фруктов. Набор от четырёх штук — вкус и декор обсудим в Direct.',
       slices: [
         {
           src: asset('images/pastry-strawberry.webp'),
@@ -233,37 +238,39 @@ export const site = {
     {
       id: 'mousse-pastries',
       name: 'Муссовые пирожные',
-      detail: 'набор от 4 шт',
-      priceFrom: 10,
+      detail: 'заказ от 2 шт',
+      priceFrom: 12,
+      priceUnit: '/шт',
+      note: '12 BYN за штуку',
       cover: asset('images/img_1109.webp'),
-      fillingsKey: 'pastries',
+      fillingsKey: 'mousse',
       description:
-        'Муссовые пирожные с аккуратной геометрией. Набор от четырёх штук — вкус и декор обсудим в Direct.',
+        'Муссовые пирожные с бархатным покрытием и аккуратной геометрией. Начинки те же, что у муссовых тортов. Заказ от двух штук — вкус и декор обсудим в Direct.',
       slices: [
         {
-          src: asset('images/img_1109.webp'),
-          filling: 'малина',
-          alt: 'Муссовые пирожные, малина',
+          src: asset('images/mousse-pastry-0391.webp'),
+          filling: 'вишня + шоколад',
+          alt: 'Муссовое пирожное, начинка вишня и шоколад',
         },
         {
-          src: asset('images/pastry-set.webp'),
-          filling: 'персик',
-          alt: 'Муссовые пирожные, набор',
+          src: asset('images/mousse-pastry-strawberry.webp'),
+          filling: 'клубника + хрустящий слой',
+          alt: 'Муссовое пирожное, начинка клубника',
         },
         {
-          src: asset('images/pastry-strawberry.webp'),
-          filling: 'клубника',
-          alt: 'Муссовое пирожное-клубника',
+          src: asset('images/mousse-pastry-peach.webp'),
+          filling: 'персик + хрустящий слой',
+          alt: 'Муссовое пирожное, начинка персик',
         },
         {
-          src: asset('images/pastry-lemon.webp'),
-          filling: 'лимон',
-          alt: 'Муссовое пирожное-лимон',
+          src: asset('images/mousse-pastry-lemon.webp'),
+          filling: 'лимон + хрустящий слой',
+          alt: 'Муссовое пирожное, начинка лимон',
         },
         {
-          src: asset('images/pastry-peach.webp'),
-          filling: 'персик',
-          alt: 'Муссовое пирожное-персик',
+          src: asset('images/mousse-pastry-banana.webp'),
+          filling: 'банан + сгущенка',
+          alt: 'Муссовое пирожное, начинка банан и сгущенка',
         },
       ],
     },
@@ -460,7 +467,7 @@ export const site = {
     { src: asset('images/img_8077.webp'), alt: 'Тематический декор' },
     { src: asset('images/img_8468.webp'), alt: 'Крафтовые сладости' },
     { src: asset('images/img_9097.webp'), alt: 'Десерт в подарочной упаковке' },
-    { src: asset('images/img_9964.webp'), alt: 'Муссовый торт крупным планом' },
+    { src: asset('images/img_9964.webp'), alt: 'Корпусные пирожные в форме фруктов' },
   ] satisfies GalleryItem[],
 
   orderSteps: [

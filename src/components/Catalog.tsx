@@ -65,7 +65,7 @@ export function Catalog() {
       src: slice.src,
       alt: slice.alt ?? `${activeCard.name} — ${slice.filling}`,
       title: slice.filling,
-      subtitle: `${activeCard.name} · от ${activeCard.priceFrom} BYN`,
+      subtitle: `${activeCard.name} · от ${activeCard.priceFrom} BYN${activeCard.priceUnit ?? ''}`,
       accent: accentByName.get(slice.filling),
     }))
 
@@ -77,7 +77,7 @@ export function Catalog() {
           src: activeCard.cover,
           alt: activeCard.name,
           title: activeCard.name,
-          subtitle: `от ${activeCard.priceFrom} BYN`,
+          subtitle: `от ${activeCard.priceFrom} BYN${activeCard.priceUnit ?? ''}`,
         },
         ...sliceSlides.filter((slide) => slide.src !== activeCard.cover),
       ]
@@ -132,6 +132,7 @@ export function Catalog() {
       name: activeCard.name,
       detail: activeCard.detail,
       priceFrom: activeCard.priceFrom,
+      priceUnit: activeCard.priceUnit,
       filling: viewedSlice?.filling ?? null,
     }
   }, [activeCard, viewedSlice])
@@ -175,6 +176,7 @@ export function Catalog() {
         name: card.name,
         detail: card.detail,
         priceFrom: card.priceFrom,
+        priceUnit: card.priceUnit,
         filling: null as string | null,
       }
       const message = site.buildOrderMessage(draft)
@@ -434,14 +436,11 @@ export function Catalog() {
                     aria-hidden
                   />
                   <span className="catalog-card__shade" aria-hidden />
-                  <span className="catalog-card__index">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
                   <span className="catalog-card__body">
                     <span className="catalog-card__name">{card.name}</span>
                     <span className="catalog-card__detail">{card.detail}</span>
                     <span className="catalog-card__price">
-                      от {card.priceFrom} BYN
+                      от {card.priceFrom} BYN{card.priceUnit ?? ''}
                     </span>
                     <span className="catalog-card__action">
                       Смотреть начинки
@@ -479,6 +478,7 @@ export function Catalog() {
                     name: card.name,
                     detail: card.detail,
                     priceFrom: card.priceFrom,
+                    priceUnit: card.priceUnit,
                     filling: null,
                   })
 
@@ -494,7 +494,7 @@ export function Catalog() {
                         <div className="catalog-list__head">
                           <h3 className="catalog-list__name">{card.name}</h3>
                           <p className="catalog-list__price">
-                            от {card.priceFrom} BYN
+                            от {card.priceFrom} BYN{card.priceUnit ?? ''}
                           </p>
                         </div>
                         <p className="catalog-list__detail">{card.detail}</p>
