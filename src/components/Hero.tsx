@@ -13,6 +13,7 @@ export function Hero() {
 
     video.setAttribute('playsinline', 'true')
     video.setAttribute('webkit-playsinline', 'true')
+    video.playbackRate = 0.75
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
