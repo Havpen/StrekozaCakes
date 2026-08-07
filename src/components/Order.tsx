@@ -1,63 +1,105 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { site } from '../content/site'
 import { asset } from '@/lib/asset'
 
 export function Order() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [showPlay, setShowPlay] = useState(true)
 
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
 
+    video.setAttribute('playsinline', 'true')
+    video.setAttribute('webkit-playsinline', 'true')
+
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     let visibleEnough = false
-    let wasPlaying = false
+    let sourceAttached = false
 
-    const syncPlayback = () => {
-      const shouldPlay =
-        visibleEnough &&
-        !document.hidden &&
-        !reduceMotion.matches
+    const ensureSource = () => {
+      if (sourceAttached) return
+      sourceAttached = true
+      video.src = asset('videos/how-to-order.mp4')
+      video.load()
+    }
 
-      if (shouldPlay) {
-        if (!wasPlaying) {
-          video.currentTime = 0
-          wasPlaying = true
-        }
-        void video.play().catch(() => {})
+    const tryPlay = async () => {
+      if (!visibleEnough || document.hidden || reduceMotion.matches) {
+        video.pause()
         return
       }
 
-      if (wasPlaying) {
-        video.pause()
+      ensureSource()
+      try {
         video.currentTime = 0
-        wasPlaying = false
+      } catch {
+        /* ignore seek before metadata */
+      }
+
+      try {
+        await video.play()
+        setShowPlay(false)
+      } catch {
+        setShowPlay(true)
       }
     }
 
+    const onPause = () => {
+      if (!visibleEnough) setShowPlay(true)
+    }
+    const onPlaying = () => setShowPlay(false)
+
     const io = new IntersectionObserver(
       ([entry]) => {
-        // Играем только когда большая часть кадра реально на экране
         visibleEnough =
-          entry.isIntersecting && entry.intersectionRatio >= 0.55
-        syncPlayback()
+          entry.isIntersecting && entry.intersectionRatio >= 0.35
+        if (!visibleEnough) {
+          video.pause()
+          try {
+            video.currentTime = 0
+          } catch {
+            /* ignore */
+          }
+          setShowPlay(true)
+          return
+        }
+        void tryPlay()
       },
       {
-        threshold: [0, 0.25, 0.55, 0.75, 1],
-        rootMargin: '0px',
+        threshold: [0, 0.2, 0.35, 0.6, 1],
       },
     )
 
-    const onVisibility = () => syncPlayback()
-    document.addEventListener('visibilitychange', onVisibility)
-
+    video.addEventListener('playing', onPlaying)
+    video.addEventListener('pause', onPause)
+    document.addEventListener('visibilitychange', () => {
+      void tryPlay()
+    })
     io.observe(video)
+
     return () => {
       io.disconnect()
-      document.removeEventListener('visibilitychange', onVisibility)
+      video.removeEventListener('playing', onPlaying)
+      video.removeEventListener('pause', onPause)
       video.pause()
     }
   }, [])
+
+  const handlePlayTap = async () => {
+    const video = videoRef.current
+    if (!video) return
+    if (!video.getAttribute('src')) {
+      video.src = asset('videos/how-to-order.mp4')
+      video.load()
+    }
+    try {
+      await video.play()
+      setShowPlay(false)
+    } catch {
+      setShowPlay(true)
+    }
+  }
 
   return (
     <section className="section order-band" id="order">
@@ -83,14 +125,23 @@ export function Order() {
           <video
             ref={videoRef}
             className="order-video__media"
-            src={asset('videos/how-to-order.mp4')}
             muted
             playsInline
             loop
-            preload="metadata"
+            preload="none"
             controls={false}
             aria-label="Как оформить заказ в Instagram Direct"
           />
+          {showPlay ? (
+            <button
+              type="button"
+              className="order-video__play"
+              onClick={() => void handlePlayTap()}
+              aria-label="Смотреть видео"
+            >
+              <span>Смотреть</span>
+            </button>
+          ) : null}
         </div>
       </div>
     </section>
