@@ -1,17 +1,55 @@
+import { useEffect, useRef } from 'react'
 import { Dragonfly } from './Dragonfly'
 import { site } from '../content/site'
+import { asset } from '@/lib/asset'
 import { scrollToSection } from '../lib/scroll'
 
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    video.setAttribute('playsinline', 'true')
+    video.setAttribute('webkit-playsinline', 'true')
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+    const tryPlay = () => {
+      if (document.hidden || reduceMotion.matches) {
+        video.pause()
+        return
+      }
+      void video.play().catch(() => {
+        /* autoplay may be blocked — poster stays visible */
+      })
+    }
+
+    tryPlay()
+
+    const onVisibility = () => tryPlay()
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility)
+      video.pause()
+    }
+  }, [])
+
   return (
     <section className="hero" id="top" aria-label="Главный экран">
       <div className="hero__media">
-        <img
-          src={site.heroImage}
-          alt="Муссовый торт STREKOZA"
-          width={1800}
-          height={1800}
-          fetchPriority="high"
+        <video
+          ref={videoRef}
+          className="hero__video"
+          src={asset('videos/hero.mp4')}
+          poster={site.heroImage}
+          muted
+          playsInline
+          loop
+          autoPlay
+          preload="metadata"
+          aria-label="STREKOZA — крафтовые десерты"
         />
         <div className="hero__veil" aria-hidden="true" />
       </div>
