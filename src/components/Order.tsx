@@ -2,9 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { site } from '../content/site'
 import { asset } from '@/lib/asset'
 
+function isTouchUi() {
+  return window.matchMedia('(hover: none), (pointer: coarse)').matches
+}
+
 export function Order() {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [showPlay, setShowPlay] = useState(true)
+  const [showPlay, setShowPlay] = useState(false)
 
   useEffect(() => {
     const video = videoRef.current
@@ -14,6 +18,7 @@ export function Order() {
     video.setAttribute('webkit-playsinline', 'true')
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const touchUi = isTouchUi()
     let visibleEnough = false
     let sourceAttached = false
 
@@ -41,13 +46,11 @@ export function Order() {
         await video.play()
         setShowPlay(false)
       } catch {
-        setShowPlay(true)
+        // Кнопка только на тач-устройствах — на десктопе автоплей обычно ок
+        if (touchUi) setShowPlay(true)
       }
     }
 
-    const onPause = () => {
-      if (!visibleEnough) setShowPlay(true)
-    }
     const onPlaying = () => setShowPlay(false)
 
     const io = new IntersectionObserver(
@@ -61,7 +64,7 @@ export function Order() {
           } catch {
             /* ignore */
           }
-          setShowPlay(true)
+          if (touchUi) setShowPlay(false)
           return
         }
         void tryPlay()
@@ -72,7 +75,6 @@ export function Order() {
     )
 
     video.addEventListener('playing', onPlaying)
-    video.addEventListener('pause', onPause)
     document.addEventListener('visibilitychange', () => {
       void tryPlay()
     })
@@ -81,7 +83,6 @@ export function Order() {
     return () => {
       io.disconnect()
       video.removeEventListener('playing', onPlaying)
-      video.removeEventListener('pause', onPause)
       video.pause()
     }
   }, [])
@@ -97,7 +98,7 @@ export function Order() {
       await video.play()
       setShowPlay(false)
     } catch {
-      setShowPlay(true)
+      if (isTouchUi()) setShowPlay(true)
     }
   }
 
