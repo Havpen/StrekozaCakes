@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { Dragonfly } from './Dragonfly'
 import { site } from '../content/site'
+import { scrollToSection } from '../lib/scroll'
+
+const navItems = [
+  { id: 'catalog', label: 'Каталог' },
+  { id: 'fillings', label: 'Начинки' },
+  { id: 'order', label: 'Как заказать' },
+  { id: 'gallery', label: 'Работы' },
+  { id: 'conditions', label: 'Условия' },
+  { id: 'reviews', label: 'Отзывы' },
+] as const
 
 export function Header() {
   const [solid, setSolid] = useState(false)
@@ -28,18 +38,26 @@ export function Header() {
   return (
     <header ref={headerRef} className={`header${solid ? ' header--solid' : ''}`}>
       <div className="header__inner">
-        <a className="brand" href="#top" aria-label={site.brand}>
+        <a
+          className="brand"
+          href={import.meta.env.BASE_URL}
+          aria-label={site.brand}
+          onClick={(event) => scrollToSection('top', event)}
+        >
           <Dragonfly className="brand__mark" tone={solid ? 'dark' : 'light'} />
           <span className="brand__name">{site.brand}</span>
         </a>
 
         <nav className="nav" aria-label="Навигация">
-          <a href="#catalog">Каталог</a>
-          <a href="#fillings">Начинки</a>
-          <a href="#order">Как заказать</a>
-          <a href="#gallery">Работы</a>
-          <a href="#conditions">Условия</a>
-          <a href="#reviews">Отзывы</a>
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={import.meta.env.BASE_URL}
+              onClick={(event) => scrollToSection(item.id, event)}
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
 
         <a

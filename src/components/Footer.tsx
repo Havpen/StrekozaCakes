@@ -1,5 +1,6 @@
 import { Dragonfly } from './Dragonfly'
 import { site } from '../content/site'
+import { scrollToSection } from '../lib/scroll'
 
 export function Footer() {
   return (
@@ -32,7 +33,11 @@ export function Footer() {
           >
             Написать в Direct
           </a>
-          <a className="btn btn--ghost" href="#catalog">
+          <a
+            className="btn btn--ghost"
+            href={import.meta.env.BASE_URL}
+            onClick={(event) => scrollToSection('catalog', event)}
+          >
             Смотреть каталог
           </a>
         </div>
