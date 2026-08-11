@@ -3,6 +3,7 @@ import { Hero } from './components/Hero'
 import { FillingsMarquee } from './components/FillingsMarquee'
 import { Catalog } from './components/Catalog'
 import { Gallery } from './components/Gallery'
+import { Events } from './components/Events'
 import { Order } from './components/Order'
 import { Conditions } from './components/Conditions'
 import { Faq } from './components/Faq'
@@ -22,6 +23,7 @@ export default function App() {
         <Catalog />
         <Order />
         <Gallery />
+        <Events />
         <Conditions />
         <Faq />
         <Reviews />

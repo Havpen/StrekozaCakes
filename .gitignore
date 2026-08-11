@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.local
 
 # Editor
 .vscode/*
@@ -28,3 +30,11 @@ public/images/_preview_*
 
 # Source photo dumps (web copies live in public/)
 /assets/
+
+# Reviews API secrets & uploads (кроме примеров)
+api/config.php
+api/uploads/reviews/*
+!api/uploads/reviews/.gitkeep
+!api/uploads/reviews/.htaccess
+!api/uploads/reviews/examples/
+!api/uploads/reviews/examples/**

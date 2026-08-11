@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { Dragonfly } from './Dragonfly'
 import { site } from '../content/site'
-import { HERO_SUPPORT, SITE_H1 } from '../config/siteSeo'
+import { HERO_SUPPORT, HERO_SUPPORT_SHORT, SITE_H1 } from '../config/siteSeo'
 import { asset } from '@/lib/asset'
 import { scrollToSection } from '../lib/scroll'
+
+const heroPoster = asset('images/hero-poster.webp')
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -43,10 +45,10 @@ export function Hero() {
       <div className="hero__media">
         <img
           className="hero__poster"
-          src={site.heroImage}
-          alt="STREKOZA — муссовый торт и десерты на заказ в Гомеле"
-          width={1600}
-          height={2000}
+          src={heroPoster}
+          alt="STREKOZA — корпусные пирожные и десерты на заказ в Гомеле"
+          width={1080}
+          height={1920}
           fetchPriority="high"
           decoding="async"
         />
@@ -54,12 +56,12 @@ export function Hero() {
           ref={videoRef}
           className="hero__video"
           src={asset('videos/hero.mp4')}
-          poster={site.heroImage}
+          poster={heroPoster}
           muted
           playsInline
           loop
           autoPlay
-          preload="metadata"
+          preload="auto"
           aria-hidden="true"
           tabIndex={-1}
         />
@@ -74,7 +76,8 @@ export function Hero() {
 
         <div className="hero__text">
           <h1 className="hero__h1">{SITE_H1}</h1>
-          <p className="hero__support">{HERO_SUPPORT}</p>
+          <p className="hero__support">{HERO_SUPPORT_SHORT}</p>
+          <p className="seo-only">{HERO_SUPPORT}</p>
         </div>
 
         <div className="hero__actions">

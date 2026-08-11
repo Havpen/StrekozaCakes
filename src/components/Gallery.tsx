@@ -49,7 +49,7 @@ const galleryItems: ImageGalleryItem[] = [
     title: 'Муссовый бенто-торт',
     desc: 'Вишня-шоколад',
     ratio: 5 / 6,
-    href: 'https://www.instagram.com/p/DP1mPcgDKsb/?img_index=1',
+    href: 'https://www.instagram.com/p/DVohOwujQEL/?img_index=1',
   },
   {
     src: asset('images/gallery/img_1109.webp'),
@@ -83,7 +83,7 @@ const galleryItems: ImageGalleryItem[] = [
     desc: 'Вишня-шоколад',
     ratio: 3 / 4,
     objectPosition: 'center 72%',
-    href: 'https://www.instagram.com/p/DVohOwujQEL/?img_index=1',
+    href: 'https://www.instagram.com/p/DPEzIGLjecI/?img_index=1',
   },
   {
     src: asset('images/gallery/img_7196.webp'),

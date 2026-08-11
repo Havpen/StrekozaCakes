@@ -1,0 +1,13 @@
+# Запрет листинга каталога API
+Options -Indexes
+
+<FilesMatch "^(config\.php|config\.example\.php|bootstrap\.php|moderation\.php|schema\.sql|seed\.sql)$">
+  Require all denied
+</FilesMatch>
+
+# Apache 2.2 fallback
+<IfModule !mod_authz_core.c>
+  <FilesMatch "^(config\.php|config\.example\.php|bootstrap\.php|moderation\.php|schema\.sql|seed\.sql)$">
+    Deny from all
+  </FilesMatch>
+</IfModule>

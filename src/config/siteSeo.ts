@@ -16,6 +16,9 @@ export const SITE_H1 =
 export const HERO_SUPPORT =
   'Заказы по Гомелю через Instagram Direct. Декор выбираете вы — начинку и дату согласуем лично. Муссовые изделия — по предзаказу от 3 дней.'
 
+/** Короткий текст на экране (полный HERO_SUPPORT остаётся для SEO) */
+export const HERO_SUPPORT_SHORT = 'Заказы по Гомелю через Instagram Direct'
+
 export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`
 export const DIRECT_URL = `https://ig.me/m/${INSTAGRAM_HANDLE}`
 export const OG_IMAGE_PATH = '/og-cover.jpg'

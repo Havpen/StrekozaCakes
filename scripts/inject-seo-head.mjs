@@ -98,7 +98,7 @@ const graph = {
 const json = JSON.stringify(graph)
 const tag = `    <script type="application/ld+json">${json}</script>\n`
 const preload =
-  '    <link rel="preload" as="image" href="%BASE_URL%images/img_0574.webp" fetchpriority="high" />\n'
+  '    <link rel="preload" as="image" href="%BASE_URL%images/hero-poster.webp" fetchpriority="high" />\n'
 
 let html = readFileSync('index.html', 'utf8')
 html = html.replace(

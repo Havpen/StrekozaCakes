@@ -18,42 +18,43 @@ type ImageGalleryProps = {
   className?: string
 }
 
-/** Раскладываем по колонкам по кругу — рядом оказываются разные пропорции */
+/**
+ * Раскладываем в самую короткую колонку (по относительной высоте 1/ratio),
+ * чтобы на 2–3 колонках не оставалась дыра справа внизу.
+ */
 function packColumns(items: ImageGalleryItem[], columnCount: number) {
   const columns: ImageGalleryItem[][] = Array.from(
     { length: columnCount },
     () => [],
   )
-  items.forEach((item, index) => {
-    columns[index % columnCount].push(item)
-  })
+  const heights = Array.from({ length: columnCount }, () => 0)
+  const gap = 0.08
+
+  for (const item of items) {
+    let shortest = 0
+    for (let i = 1; i < columnCount; i++) {
+      if (heights[i] < heights[shortest]) shortest = i
+    }
+    columns[shortest].push(item)
+    heights[shortest] += 1 / item.ratio + gap
+  }
+
   return columns
 }
 
 export function ImageGallery({ items, className }: ImageGalleryProps) {
   const desktopColumns = useMemo(() => packColumns(items, 3), [items])
-  const tabletColumns = useMemo(() => packColumns(items, 2), [items])
+  const mobileColumns = useMemo(() => packColumns(items, 2), [items])
 
   return (
     <div className={cn('relative w-full', className)}>
-      {/* Mobile: одна колонка */}
-      <div className="grid gap-4 sm:hidden">
-        {items.map((item, index) => (
-          <AnimatedImage
-            key={`m-${item.src}`}
-            item={item}
-            priority={index < 2}
-          />
-        ))}
-      </div>
-
-      {/* Tablet: 2 колонки */}
-      <div className="hidden gap-4 sm:grid sm:grid-cols-2 lg:hidden">
-        {tabletColumns.map((column, colIndex) => (
-          <div key={`t-${colIndex}`} className="grid gap-4 content-start">
+      {/* Mobile / tablet: 2 колонки, без дыр справа */}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
+        {mobileColumns.map((column, colIndex) => (
+          <div key={`m-${colIndex}`} className="grid gap-3 content-start sm:gap-4">
             {column.map((item, index) => (
               <AnimatedImage
-                key={`t-${item.src}`}
+                key={`m-${item.src}`}
                 item={item}
                 priority={colIndex === 0 && index < 2}
               />
